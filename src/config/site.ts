@@ -647,6 +647,61 @@ export const coupons: readonly Coupon[] = [
   { code: "SHAREPAL", percent: 10, minOrder: 1500, maxDiscount: 300 },
 ];
 
+/** In-grid promo banners, copy from the owner's screenshots of the live listing. */
+export const promoBanners = {
+  assetPartner: {
+    titleStart: "Become an",
+    titleHighlight: "Asset Partner.",
+    titleEnd: "Earn Monthly.",
+    groups: [
+      {
+        label: "Earning Benefits",
+        items: [
+          {
+            icon: "calendar",
+            eyebrow: "",
+            value: "Monthly Earnings",
+            caption: "From rental assets",
+          },
+          {
+            icon: "gift",
+            eyebrow: "Upto",
+            value: "₹10,000",
+            caption: "Instant Wallet credits",
+          },
+        ],
+      },
+      {
+        label: "Rental Benefits",
+        items: [
+          {
+            icon: "tag",
+            eyebrow: "",
+            value: "10% Off",
+            caption: "Exclusive discount when you rent",
+          },
+          {
+            icon: "refresh",
+            eyebrow: "",
+            value: "Get 10% Cashback",
+            caption: "On every order",
+          },
+        ],
+      },
+    ],
+    cta: "Know More",
+    href: live("/asset-funding-program"),
+  },
+  rentOut: {
+    eyebrowStart: "Got gear you d",
+    eyebrowUnderlined: "ont use anymo",
+    eyebrowEnd: "re?",
+    title: "Rent Out Your Gear on SharePal",
+    cta: "Earn With Us",
+    href: live("/rent-your-gear"),
+  },
+} as const;
+
 export const supportLinks = {
   /** The live "Contact Support" button opens a chat widget; this build links to support. */
   contactSupport: live("/support"),

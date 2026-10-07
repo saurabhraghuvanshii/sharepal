@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+import { getFacets } from "@/lib/products";
 import type { Product } from "@/types/product";
 
 import { ListingLayout } from "./ListingLayout";
@@ -37,7 +38,13 @@ export function ListingFallback({
       }
     >
       <div className="h-[84px] md:h-[92px]" aria-hidden="true" />
-      <ProductGrid products={products.slice(0, pageSize)} />
+      <ProductGrid
+        products={products.slice(0, pageSize)}
+        promoImage={
+          getFacets(products).subcategories.find((s) => s.slug === "ps5-combos")
+            ?.image
+        }
+      />
     </ListingLayout>
   );
 }

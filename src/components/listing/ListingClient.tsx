@@ -112,7 +112,13 @@ export function ListingClient({
           suggestions={relatedCategories.slice(0, 4)}
         />
       ) : (
-        <ProductGrid products={visible} busy={isPending} />
+        <ProductGrid
+          products={visible}
+          busy={isPending}
+          promoImage={
+            facets.subcategories.find((s) => s.slug === "ps5-combos")?.image
+          }
+        />
       )}
     </ListingLayout>
   );
