@@ -119,11 +119,23 @@ function isRentable(product: Product): boolean {
 export function getFacets(products: readonly Product[]): Facets {
   const prices = products.map((p) => p.per_day_rent);
   return {
-    subcategories: SUBCATEGORY_RULES.map((rule) => ({
-      slug: rule.slug,
-      label: rule.label,
-      count: products.filter((p) => getSubcategory(p) === rule.slug).length,
-    })).filter((s) => s.count > 0),
+    subcategories: SUBCATEGORY_RULES.flatMap((rule) => {
+      const members = sortProducts(
+        products.filter((p) => getSubcategory(p) === rule.slug),
+        "popular",
+      );
+      const cover = members[0];
+      return cover
+        ? [
+            {
+              slug: rule.slug,
+              label: rule.label,
+              count: members.length,
+              image: cover.image,
+            },
+          ]
+        : [];
+    }),
     tags: FILTER_TAGS.map((tag) => ({
       tag,
       count: products.filter((p) => p.tag === tag).length,

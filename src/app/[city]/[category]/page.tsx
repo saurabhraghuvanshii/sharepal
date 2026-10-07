@@ -26,9 +26,8 @@ import {
   seoContent,
   SITE_URL,
   stats,
-  trustPoints,
 } from "@/config/site";
-import { getProductsByCategory, sortProducts } from "@/lib/products";
+import { getFacets, getProductsByCategory, sortProducts } from "@/lib/products";
 
 const PAGE_SIZE = 12;
 
@@ -91,6 +90,25 @@ export default async function CategoryPage({
   const path = `/${city.slug}/${category.slug}`;
   const defaultOrder = sortProducts(products, "popular");
 
+  // Banner photos: the top "Racing & Remote Play" product on the left, top PS5 combo on
+  // the right (falls back to the most popular products if a group is missing).
+  const covers = getFacets(products).subcategories;
+  const leftImage =
+    covers.find((s) => s.slug === "accessories")?.image ??
+    defaultOrder[1]?.image;
+  const rightImage =
+    covers.find((s) => s.slug === "ps5-combos")?.image ??
+    defaultOrder[0]?.image;
+  const hero = (
+    <CategoryHero
+      title={category.heroTitle}
+      subtitle={category.heroSubtitle}
+      brands={category.heroBrands}
+      leftImage={leftImage}
+      rightImage={rightImage}
+    />
+  );
+
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -128,18 +146,13 @@ export default async function CategoryPage({
 
   return (
     <>
-      <CategoryHero
-        title={category.heroTitle}
-        subtitle={category.heroSubtitle}
-        brands={category.heroBrands}
-        trustPoints={trustPoints}
-      />
       <Suspense
         fallback={
           <ListingFallback
             products={defaultOrder}
             title={category.listTitle}
             pageSize={PAGE_SIZE}
+            hero={hero}
           />
         }
       >
@@ -147,6 +160,7 @@ export default async function CategoryPage({
           products={products}
           title={category.listTitle}
           pageSize={PAGE_SIZE}
+          hero={hero}
         />
       </Suspense>
       <FaqAccordion faqs={faqs} visibleCount={FAQ_VISIBLE_COUNT} />

@@ -82,14 +82,6 @@ export const superCategories = [
   },
 ] as const;
 
-/** Trust points from the page's meta description ("Zero Deposit | Free Delivery | ..."). */
-export const trustPoints = [
-  "Zero Deposit",
-  "Free Delivery",
-  "Excellent Quality",
-  "Pay on Delivery",
-] as const;
-
 /**
  * How renting works — steps paraphrased from the reference FAQ "How can I rent from SharePal?".
  */

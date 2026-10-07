@@ -39,7 +39,13 @@ export interface ListingParams {
 }
 
 export interface Facets {
-  subcategories: { slug: SubcategorySlug; label: string; count: number }[];
+  subcategories: {
+    slug: SubcategorySlug;
+    label: string;
+    count: number;
+    /** Photo of the subcategory's most-booked rentable product (from the JSON). */
+    image: string;
+  }[];
   tags: { tag: FilterTag; count: number }[];
   price: { min: number; max: number };
   inStockCount: number;

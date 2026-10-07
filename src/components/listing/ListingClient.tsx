@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowDown } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 
 import { Button } from "@/components/ui";
 import { relatedCategories } from "@/config/site";
@@ -26,6 +26,7 @@ export interface ListingClientProps {
   products: readonly Product[];
   title: string;
   pageSize: number;
+  hero: ReactNode;
 }
 
 /** Interactive listing: URL-synced filters/sort, dimmed results while a transition is pending. */
@@ -33,6 +34,7 @@ export function ListingClient({
   products,
   title,
   pageSize,
+  hero,
 }: ListingClientProps) {
   const { params, setParams, reset, isPending } = useListingParams();
   const facets = useMemo(() => getFacets(products), [products]);
@@ -51,6 +53,7 @@ export function ListingClient({
     <ListingLayout
       title={title}
       count={results.length}
+      hero={hero}
       rail={
         <SubcategoryRail
           subcategories={facets.subcategories}

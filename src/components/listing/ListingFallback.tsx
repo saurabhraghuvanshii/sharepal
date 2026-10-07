@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 import type { Product } from "@/types/product";
 
 import { ListingLayout } from "./ListingLayout";
@@ -8,6 +10,7 @@ export interface ListingFallbackProps {
   products: readonly Product[];
   title: string;
   pageSize: number;
+  hero: ReactNode;
 }
 
 /**
@@ -18,11 +21,13 @@ export function ListingFallback({
   products,
   title,
   pageSize,
+  hero,
 }: ListingFallbackProps) {
   return (
     <ListingLayout
       title={title}
       count={products.length}
+      hero={hero}
       rail={<SubcategoryRailPlaceholder />}
       footer={
         <p className="text-sm text-neutral-500 md:text-base">
