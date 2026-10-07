@@ -9,7 +9,6 @@ export const LIVE_SITE = "https://sharepal.in";
 export const brand = {
   name: "SharePal",
   legalName: "SWNAC E-Kiraya Services Pvt Ltd",
-  tagline: "Made with ♥️ for India",
   supportEmail: "care@sharepal.in",
 } as const;
 
@@ -365,11 +364,6 @@ export const footerCategories: readonly LinkGroup[] = [
         label: "Riding Boots",
         href: cat("outdoor-gears-on-rent", "riding-boots-on-rent"),
       },
-    ],
-  },
-  {
-    title: "Binoculars",
-    links: [
       {
         label: "Binoculars",
         href: cat("photography-on-rent", "binoculars-on-rent"),
@@ -490,7 +484,11 @@ export const footerLinks: readonly LinkGroup[] = [
       { label: "Why SharePal", href: live("/why-sharepal") },
       { label: "Sitemap", href: live("/sitemap") },
       { label: "CarePal", href: live("/carepal") },
-      { label: "Become a Pal", href: live("/become-a-pal") },
+    ],
+  },
+  {
+    title: "Become a Pal",
+    links: [
       { label: "Sharepal for Creators", href: live("/creators") },
       { label: "Careers", href: live("/careers") },
       { label: "Sharepal for Brands", href: live("/brands") },
@@ -524,7 +522,27 @@ export const footerLinks: readonly LinkGroup[] = [
   },
 ];
 
+/**
+ * Footer SEO block, copied from the owner's screenshot of the live footer.
+ * Only the Action Cameras entry was visible; add more categories to enable "Read More".
+ */
+export const footerSeo = {
+  title: "Renting from SharePal in Bangalore",
+  href: live("/bangalore"),
+  body: "Discover the convenience of renting from SharePal, your trusted partner in Bangalore for all your rental needs. Whether you're exploring the vibrant streets of Koramangala, setting up a shoot in Indiranagar, or planning a trek from the outskirts of Whitefield, SharePal has you covered. We offer a wide range of products, including cameras, action cameras, gaming consoles, projectors, speakers, trekking gear, riding gear, and creator gear. With free home delivery and pickup services, flexible rental tenures, and an easy-to-use platform, renting has never been easier. Experience the freedom to rent what you need, when you need it, without the commitment of buying.",
+  categoriesTitle: "Categories on Rent",
+  categories: [
+    {
+      title: "Action Cameras on Rent",
+      href: cat("photography-on-rent", "action-cameras-on-rent"),
+      body: "Capture your adventures in stunning detail with our range of action cameras. Choose from top brands like GoPro, Insta360, and DJI, perfect for everything from extreme sports to casual vlogging. Whether you need high-quality video for your next trek or a 360-degree camera to capture every angle, we've got you covered.",
+    },
+  ],
+} as const;
+
 export const supportLinks = {
+  /** The live "Contact Support" button opens a chat widget; this build links to support. */
+  contactSupport: live("/support"),
   contactUs: live("/support"),
   email: `mailto:${brand.supportEmail}`,
 } as const;
