@@ -522,6 +522,94 @@ export const footerLinks: readonly LinkGroup[] = [
   },
 ];
 
+const outdoor = (sub: string) => cat("outdoor-gears-on-rent", sub);
+const photo = (sub: string) => cat("photography-on-rent", sub);
+const gaming = (sub: string) => cat("gaming-gadgets-on-rent", sub);
+const entertainment = (sub: string) => cat("entertainment-on-rent", sub);
+
+/**
+ * Dropdown links under each header category tab. Gaming, Outdoor and Entertainment
+ * follow the owner's screenshots (column-major order); Photography is derived from the
+ * live site's photography + creator-gear links (no screenshot supplied).
+ */
+export const categoryMenus: Record<
+  (typeof superCategories)[number]["label"],
+  readonly LinkItem[]
+> = {
+  Photography: [
+    { label: "Action Cameras", href: photo("action-cameras-on-rent") },
+    { label: "Pocket Cameras", href: photo("pocket-cameras-on-rent") },
+    { label: "GoPro Cameras", href: photo("gopro-cameras-on-rent") },
+    { label: "DJI Cameras", href: photo("dji-cameras-on-rent") },
+    { label: "DJI Drones", href: photo("dji-drones-on-rent") },
+    { label: "360 Cameras", href: photo("360-cameras-on-rent") },
+    { label: "DSLR Cameras", href: photo("dslr-cameras-on-rent") },
+    { label: "Cameras", href: photo("all-cameras-on-rent") },
+    { label: "iPhones", href: photo("iphones-on-rent") },
+    { label: "DSLR Gimbal Combos", href: photo("dslr-gimbal-on-rent") },
+    {
+      label: "Wildlife Photography",
+      href: photo("wildlife-photography-cameras-on-rent"),
+    },
+    {
+      label: "Tripod and camera accessories",
+      href: photo("tripod-and-camera-accessories-on-rent"),
+    },
+    {
+      label: "Wireless & Collar Mics",
+      href: photo("wireless-and-collar-mics-on-rent"),
+    },
+    {
+      label: "Professional Cameras",
+      href: photo("professional-cameras-on-rent"),
+    },
+    { label: "Mirrorless Cameras", href: photo("mirrorless-cameras-on-rent") },
+    { label: "UNLMTD Vlogging", href: photo("unlmtd-vlogging-on-rent") },
+    { label: "Mobile Gimbals", href: photo("mobile-gimbals-on-rent") },
+    { label: "Vlogging", href: photo("vlogging-cameras-on-rent") },
+  ],
+  Gaming: [
+    { label: "GTA VI", href: gaming("gta-vi-on-rent") },
+    { label: "PS5 Console", href: gaming("ps5-console-on-rent") },
+    { label: "Xbox Console", href: gaming("xbox-console-on-rent") },
+    { label: "VR", href: gaming("vr-on-rent") },
+    { label: "Racing Wheel", href: gaming("gaming-controllers-on-rent") },
+    { label: "Big Screen Gaming", href: gaming("big-screen-gaming") },
+  ],
+  Outdoor: [
+    { label: "Trekking Gear", href: outdoor("trekking-gear-on-rent") },
+    { label: "Riding Gear", href: outdoor("riding-gear-on-rent") },
+    { label: "Camping Gear", href: outdoor("camping-gear-on-rent") },
+    { label: "Trekking Shoes", href: outdoor("trekking-shoes-on-rent") },
+    { label: "Snow Boots", href: outdoor("snow-boots-on-rent") },
+    { label: "Trekking Jackets", href: outdoor("trekking-jackets-on-rent") },
+    { label: "Trek/Snow Pants", href: outdoor("trek-snow-pants-on-rent") },
+    { label: "Trek Accessories", href: outdoor("trek-accessories-on-rent") },
+    { label: "Winter Jackets", href: outdoor("winter-jackets-on-rent") },
+    { label: "Riding Jackets", href: outdoor("riding-jackets-on-rent") },
+    { label: "Riding Boots", href: outdoor("riding-boots-on-rent") },
+    { label: "Riding Essentials", href: outdoor("riding-essentials-on-rent") },
+    { label: "Riding Luggage", href: outdoor("riding-luggage-on-rent") },
+    { label: "Backpacks", href: outdoor("backpacks-on-rent") },
+    { label: "Binoculars", href: photo("binoculars-on-rent") },
+    { label: "Camping Tents", href: outdoor("camping-tents-on-rent") },
+    {
+      label: "Camping Stools & Tables",
+      href: outdoor("camping-stools-and-tables-on-rent"),
+    },
+    {
+      label: "Sleeping Bags & Mats",
+      href: outdoor("sleeping-bags-and-mats-on-rent"),
+    },
+  ],
+  Entertainment: [
+    { label: "Projectors", href: entertainment("projectors-on-rent") },
+    { label: "Speakers", href: entertainment("speakers-on-rent") },
+    { label: "Mics", href: entertainment("mics-on-rent") },
+    { label: "VR", href: gaming("vr-on-rent") },
+  ],
+};
+
 /**
  * Footer SEO block, copied from the owner's screenshot of the live footer.
  * Only the Action Cameras entry was visible; add more categories to enable "Read More".
