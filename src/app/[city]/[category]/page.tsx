@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import { Breadcrumbs } from "@/components/listing/Breadcrumbs";
 import { CategoryHero } from "@/components/listing/CategoryHero";
 import { ListingClient } from "@/components/listing/ListingClient";
 import { ListingFallback } from "@/components/listing/ListingFallback";
@@ -129,14 +128,6 @@ export default async function CategoryPage({
 
   return (
     <>
-      <Breadcrumbs
-        className="pb-0 md:pb-0"
-        items={[
-          { label: "Home", href: path },
-          { label: city.name, href: `${LIVE_SITE}/${city.slug}` },
-          { label: category.breadcrumbLabel, href: path },
-        ]}
-      />
       <CategoryHero
         title={category.heroTitle}
         subtitle={category.heroSubtitle}

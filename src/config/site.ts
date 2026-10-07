@@ -581,3 +581,15 @@ export const seoContent = {
     "Pick your dates, add your combo to the cart and we'll deliver it to your door. When your rental ends, we pick it up — no storage, no resale hassle.",
   ],
 } as const;
+
+/** Rental-date dialog copy, from the owner's screenshot of the live date picker. */
+export const rentalDatesCopy = {
+  title: "Select your Dates",
+  sameDayWindow: "5PM and 11PM",
+  pickupWindow: "9AM to 1PM",
+  savingsTitle: "Save more with us!",
+  savingsBody:
+    "Longer rental periods mean bigger savings—enjoy discounts of up to 12%. We don't charge you for delivery and pickup days!",
+  /** How far ahead dates can be booked. PLACEHOLDER — the live limit is unknown. */
+  maxDaysAhead: 180,
+} as const;

@@ -56,7 +56,7 @@ export function LocationPicker({ currentCity, variant }: LocationPickerProps) {
   }
 
   return (
-    <div ref={rootRef} className="relative">
+    <div ref={rootRef} className="relative flex">
       <button
         ref={buttonRef}
         type="button"
@@ -74,7 +74,7 @@ export function LocationPicker({ currentCity, variant }: LocationPickerProps) {
         className={cn(
           "flex items-center justify-center gap-1 font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none",
           variant === "desktop"
-            ? "h-full rounded-l-full bg-neutral-200 px-2.5 py-1.5 text-sm text-primary-900 hover:bg-neutral-250"
+            ? "h-full rounded-l-full bg-neutral-200 pr-2.5 pl-3 text-[15px] text-primary-900 hover:bg-neutral-250"
             : "rounded-full border border-category-purple bg-category-purple px-2.5 py-1 text-xs text-gray-100 shadow-md",
         )}
       >

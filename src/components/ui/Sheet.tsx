@@ -5,7 +5,7 @@ import { useEffect, useId, useRef, type ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
 
-type SheetSide = "left" | "right" | "bottom";
+type SheetSide = "left" | "right" | "bottom" | "center";
 
 export interface SheetProps {
   open: boolean;
@@ -15,6 +15,7 @@ export interface SheetProps {
   children: ReactNode;
   footer?: ReactNode;
   className?: string;
+  bodyClassName?: string;
 }
 
 const panelBySide: Record<SheetSide, string> = {
@@ -23,6 +24,9 @@ const panelBySide: Record<SheetSide, string> = {
     "ml-auto h-dvh max-h-dvh w-[min(24rem,92vw)] rounded-l-3xl animate-sheet-in-right",
   bottom:
     "mt-auto max-h-[88dvh] w-full max-w-full rounded-t-3xl animate-sheet-in-bottom",
+  // Centered modal from md up; full-width bottom sheet on phones.
+  center:
+    "mt-auto max-h-[94dvh] w-full rounded-t-4xl bg-gray-150 animate-sheet-in-bottom md:m-auto md:max-h-[92dvh] md:w-[min(80rem,calc(100vw-2rem))] md:rounded-4xl md:animate-pop-in",
 };
 
 /**
@@ -37,7 +41,9 @@ export function Sheet({
   children,
   footer,
   className,
+  bodyClassName,
 }: SheetProps) {
+  const centered = side === "center";
   const dialogRef = useRef<HTMLDialogElement>(null);
   const titleId = useId();
 
@@ -74,20 +80,43 @@ export function Sheet({
         className,
       )}
     >
-      <div className="flex items-center justify-between gap-4 border-b border-neutral-200 px-5 py-4">
-        <h2 id={titleId} className="text-h6 text-primary-900">
+      <div
+        className={cn(
+          "flex items-center justify-between gap-4",
+          centered
+            ? "px-5 pt-5 pb-1 md:px-6 md:pt-6"
+            : "border-b border-neutral-200 px-5 py-4",
+        )}
+      >
+        <h2
+          id={titleId}
+          className={cn(
+            centered
+              ? "text-h4 font-bold text-neutral-900 md:text-[1.625rem] md:leading-8"
+              : "text-h6 text-primary-900",
+          )}
+        >
           {title}
         </h2>
         <button
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="flex size-9 items-center justify-center rounded-full text-neutral-500 transition-colors hover:bg-neutral-150 hover:text-neutral-900 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none"
+          className={cn(
+            "flex size-9 items-center justify-center rounded-full text-neutral-500 transition-colors hover:bg-neutral-150 hover:text-neutral-900 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none",
+            centered && "bg-gray-100 text-neutral-900",
+          )}
         >
           <X className="size-5" aria-hidden="true" />
         </button>
       </div>
-      <div className="flex-1 overflow-y-auto overscroll-contain px-5 py-4">
+      <div
+        className={cn(
+          "flex-1 overflow-y-auto overscroll-contain px-5 py-4",
+          centered && "md:px-6 md:pb-6",
+          bodyClassName,
+        )}
+      >
         {children}
       </div>
       {footer && (

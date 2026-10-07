@@ -1,6 +1,12 @@
 "use client";
 
-import { CalendarDays, Search, ShoppingCart, UserRound } from "lucide-react";
+import {
+  CalendarClock,
+  CalendarPlus,
+  Search,
+  ShoppingCart,
+  UserRound,
+} from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
@@ -62,98 +68,100 @@ export function Header({ city, listingPath, products }: HeaderProps) {
       <header
         ref={headerRef}
         className={cn(
-          "sticky top-0 z-40 w-full bg-category-purple-dark pt-[env(safe-area-inset-top)] transition-shadow duration-300",
-          scrolled && "shadow-medium",
+          "sticky top-0 z-40 w-full bg-page transition-shadow duration-300",
+          scrolled && "shadow-soft",
         )}
       >
-        {/* Desktop */}
-        <div className="container hidden items-end justify-between gap-4 lg:flex">
-          <Logo href={listingPath} />
-          <div className="flex items-center gap-2 self-center rounded-full border-2 border-category-purple bg-gray-100 pr-0.5">
-            <LocationPicker currentCity={city} variant="desktop" />
-            <button
-              type="button"
-              onClick={openDatePicker}
-              aria-label={
-                dates
-                  ? `Rental dates: ${formatShortDate(dates.delivery)} to ${formatShortDate(dates.pickup)}. Edit dates`
-                  : "Select rental dates"
-              }
-              className="flex items-center gap-2 rounded-full px-2 py-2 text-sh5 text-neutral-700 hover:text-primary-900 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none"
-            >
-              <span className="flex items-center gap-1.5">
-                <CalendarDays className="size-4" aria-hidden="true" />
-                {dates ? formatShortDate(dates.delivery) : "Delivery Date"}
-              </span>
-              <span className="h-5 w-0.5 bg-neutral-200" aria-hidden="true" />
-              <span className="flex items-center gap-1.5">
-                <CalendarDays className="size-4" aria-hidden="true" />
-                {dates ? formatShortDate(dates.pickup) : "Pickup Date"}
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={openDatePicker}
-              className="flex h-9 items-center gap-1 rounded-4xl bg-primary-900 px-4 text-sm font-semibold tracking-wide text-gray-100 transition-colors hover:bg-primary-800 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-1 focus-visible:outline-none"
-            >
-              {dates ? "Edit" : "Select"}
-            </button>
+        <div className="bg-category-purple-dark pt-[env(safe-area-inset-top)]">
+          {/* Desktop */}
+          <div className="container hidden h-[87px] items-start justify-between gap-4 lg:flex">
+            <Logo href={listingPath} />
+            <div className="flex h-10 items-stretch gap-3 self-center overflow-visible rounded-full border-2 border-category-purple bg-gray-100">
+              <LocationPicker currentCity={city} variant="desktop" />
+              <button
+                type="button"
+                onClick={openDatePicker}
+                aria-label={
+                  dates
+                    ? `Rental dates: ${formatShortDate(dates.delivery)} to ${formatShortDate(dates.pickup)}. Edit dates`
+                    : "Select rental dates"
+                }
+                className="flex items-center gap-4 rounded-full text-[15px] leading-5 font-medium text-neutral-700 hover:text-primary-900 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none"
+              >
+                <span className="flex items-center gap-2">
+                  <CalendarClock className="size-4" aria-hidden="true" />
+                  {dates ? formatShortDate(dates.delivery) : "Delivery Date"}
+                </span>
+                <span className="flex items-center gap-2">
+                  <CalendarClock className="size-4" aria-hidden="true" />
+                  {dates ? formatShortDate(dates.pickup) : "Pickup Date"}
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={openDatePicker}
+                className="flex items-center gap-1.5 rounded-full bg-primary-900 px-3.5 text-[15px] font-semibold tracking-wide text-gray-100 transition-colors hover:bg-primary-800 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-1 focus-visible:outline-none"
+              >
+                <CalendarPlus className="size-4" aria-hidden="true" />
+                {dates ? "Edit" : "Select"}
+              </button>
+            </div>
+            <div className="flex items-center gap-3 self-center">
+              <button
+                type="button"
+                className={iconButton}
+                aria-label="Search"
+                onClick={() => setSearchOpen(true)}
+              >
+                <Search className="size-5" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                className={iconButton}
+                aria-label={`Cart, ${cart.ids.length} items`}
+                onClick={() => setCartOpen(true)}
+              >
+                <ShoppingCart className="size-5" aria-hidden="true" />
+                {cartBadge}
+              </button>
+              <a
+                href={`${LIVE_SITE}/login`}
+                className="group flex items-center gap-3 rounded-full text-base font-semibold text-gray-100 focus-visible:ring-2 focus-visible:ring-gray-100 focus-visible:outline-none"
+              >
+                <span className="flex size-11 items-center justify-center rounded-full border-2 border-category-purple bg-gray-100 text-neutral-900 transition-colors group-hover:bg-gray-200">
+                  <UserRound className="size-5" aria-hidden="true" />
+                </span>
+                Hi, Login
+              </a>
+            </div>
           </div>
-          <div className="flex items-center gap-3 self-center">
-            <button
-              type="button"
-              className={iconButton}
-              aria-label="Search"
-              onClick={() => setSearchOpen(true)}
-            >
-              <Search className="size-5" aria-hidden="true" />
-            </button>
-            <button
-              type="button"
-              className={iconButton}
-              aria-label={`Cart, ${cart.ids.length} items`}
-              onClick={() => setCartOpen(true)}
-            >
-              <ShoppingCart className="size-5" aria-hidden="true" />
-              {cartBadge}
-            </button>
-            <a
-              href={`${LIVE_SITE}/login`}
-              className="group flex items-center gap-3 rounded-full text-sm font-medium text-gray-100 focus-visible:ring-2 focus-visible:ring-gray-100 focus-visible:outline-none"
-            >
-              <span className="flex size-11 items-center justify-center rounded-full border-2 border-category-purple bg-gray-100 text-neutral-900 transition-colors group-hover:bg-gray-200">
-                <UserRound className="size-5" aria-hidden="true" />
-              </span>
-              Hi, Login
-            </a>
-          </div>
-        </div>
 
-        {/* Mobile */}
-        <div className="container flex items-start justify-between gap-2 lg:hidden">
-          <Logo href={listingPath} compact />
-          <div className="flex items-center gap-1.5 pt-1.5">
-            <LocationPicker currentCity={city} variant="mobile" />
-            <button
-              type="button"
-              onClick={openDatePicker}
-              aria-label="Select rental dates"
-              className="flex size-9 items-center justify-center rounded-full text-gray-100 hover:bg-gray-100/10 focus-visible:ring-2 focus-visible:ring-gray-100 focus-visible:outline-none"
-            >
-              <CalendarDays className="size-5" aria-hidden="true" />
-            </button>
-            <a
-              href={`${LIVE_SITE}/login`}
-              aria-label="Login"
-              className="flex size-9 items-center justify-center rounded-full border-2 border-category-purple bg-gray-100 text-neutral-900 focus-visible:ring-2 focus-visible:ring-gray-100 focus-visible:outline-none"
-            >
-              <UserRound className="size-4" aria-hidden="true" />
-            </a>
+          {/* Mobile */}
+          <div className="container flex items-start justify-between gap-2 pb-2.5 lg:hidden">
+            <Logo href={listingPath} compact />
+            <div className="flex items-center gap-1.5 pt-1.5">
+              <LocationPicker currentCity={city} variant="mobile" />
+              <button
+                type="button"
+                onClick={openDatePicker}
+                aria-label="Select rental dates"
+                className="flex size-9 items-center justify-center rounded-full text-gray-100 hover:bg-gray-100/10 focus-visible:ring-2 focus-visible:ring-gray-100 focus-visible:outline-none"
+              >
+                <CalendarClock className="size-5" aria-hidden="true" />
+              </button>
+              <a
+                href={`${LIVE_SITE}/login`}
+                aria-label="Login"
+                className="flex size-9 items-center justify-center rounded-full border-2 border-category-purple bg-gray-100 text-neutral-900 focus-visible:ring-2 focus-visible:ring-gray-100 focus-visible:outline-none"
+              >
+                <UserRound className="size-4" aria-hidden="true" />
+              </a>
+            </div>
           </div>
         </div>
 
         <nav aria-label="Categories" className="container">
-          <ul className="flex scrollbar-none items-center gap-0.5 overflow-x-auto py-2.5 max-sm:justify-between lg:justify-center lg:gap-3 lg:py-3">
+          <ul className="flex scrollbar-none items-end justify-between overflow-x-auto sm:justify-center sm:gap-6 lg:gap-16">
             {superCategories.map((item) => {
               const active = "active" in item && item.active;
               return (
@@ -162,10 +170,10 @@ export function Header({ city, listingPath, products }: HeaderProps) {
                     href={item.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "block rounded-full px-2.5 py-1.5 text-[13px] font-semibold whitespace-nowrap transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-gray-100 focus-visible:outline-none sm:px-4 sm:text-sm md:px-4",
+                      "block border-b-2 px-1.5 pt-2.5 pb-2 text-center text-[13px] font-semibold whitespace-nowrap transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none focus-visible:ring-inset sm:min-w-28 sm:px-2.5 sm:text-sm md:text-[15px] lg:min-w-[120px]",
                       active
-                        ? "bg-gray-100 text-category-purple-dark"
-                        : "text-gray-100/80 hover:bg-gray-100/10 hover:text-gray-100",
+                        ? "border-category-purple-dark text-neutral-900"
+                        : "border-transparent text-neutral-700 hover:border-neutral-250 hover:text-neutral-900",
                     )}
                   >
                     {item.label}

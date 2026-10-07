@@ -6,11 +6,8 @@ import {
   useContext,
   useMemo,
   useState,
-  useSyncExternalStore,
   type ReactNode,
 } from "react";
-
-import { createStoredValue } from "@/lib/storage";
 
 import { RentalDatesSheet } from "./RentalDatesSheet";
 
@@ -19,22 +16,8 @@ export interface RentalDates {
   pickup: string;
 }
 
-function isRentalDates(value: unknown): value is RentalDates | null {
-  if (value === null) return true;
-  if (typeof value !== "object") return false;
-  const v = value as Record<string, unknown>;
-  return typeof v.delivery === "string" && typeof v.pickup === "string";
-}
-
-const datesStore = createStoredValue<RentalDates | null>(
-  "sharepal:rental-dates",
-  null,
-  isRentalDates,
-);
-
 interface RentalContextValue {
   dates: RentalDates | null;
-  setDates: (dates: RentalDates | null) => void;
   openDatePicker: () => void;
 }
 
@@ -44,18 +27,18 @@ export interface RentalProviderProps {
   children: ReactNode;
 }
 
-/** Shares the selected rental dates (persisted locally) and the date-picker sheet. */
+/**
+ * Shares the selected rental dates and the date-picker sheet. Dates live in memory only:
+ * every page load starts with the "Delivery Date / Pickup Date" placeholders, and the
+ * header shows dates only after the visitor picks them.
+ */
 export function RentalProvider({ children }: RentalProviderProps) {
-  const dates = useSyncExternalStore(
-    datesStore.subscribe,
-    datesStore.get,
-    datesStore.getServer,
-  );
+  const [dates, setDates] = useState<RentalDates | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
   const openDatePicker = useCallback(() => setPickerOpen(true), []);
 
   const value = useMemo(
-    () => ({ dates, setDates: datesStore.set, openDatePicker }),
+    () => ({ dates, openDatePicker }),
     [dates, openDatePicker],
   );
 
@@ -67,7 +50,7 @@ export function RentalProvider({ children }: RentalProviderProps) {
         onClose={() => setPickerOpen(false)}
         initial={dates}
         onConfirm={(next) => {
-          datesStore.set(next);
+          setDates(next);
           setPickerOpen(false);
         }}
       />

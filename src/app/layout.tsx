@@ -15,6 +15,7 @@ const ubuntu = Ubuntu({
   variable: "--font-ubuntu",
   subsets: ["latin"],
   weight: ["300", "400", "500", "700"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
