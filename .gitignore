@@ -1,0 +1,62 @@
+# --- dependencies ---
+node_modules/
+.pnp
+.pnp.*
+.yarn/*
+
+# --- next.js ---
+.next/
+out/
+build/
+next-env.d.ts
+*.tsbuildinfo
+
+# --- env / secrets ---
+.env
+.env.*
+!.env.example
+
+# --- logs / os / editor ---
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.vercel
+
+# --- AI agent files (local only, never committed) ---
+CLAUDE.md
+**/CLAUDE.md
+CLAUDE.local.md
+AGENTS.md
+**/AGENTS.md
+.claude/
+.agents/
+
+# --- tests (local only, never committed) ---
+tests/
+test/
+__tests__/
+e2e/
+cypress/
+*.test.ts
+*.test.tsx
+*.test.js
+*.test.jsx
+*.spec.ts
+*.spec.tsx
+*.spec.js
+*.spec.jsx
+vitest.config.*
+jest.config.*
+jest.setup.*
+playwright.config.*
+playwright-report/
+test-results/
+coverage/
+
+.plan

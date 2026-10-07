@@ -1,0 +1,7 @@
+.next
+node_modules
+.plan
+.claude
+data
+package-lock.json
+*.md
