@@ -18,6 +18,8 @@ export interface SheetProps {
   bodyClassName?: string;
   /** Put the close button before the title (search-panel style). */
   closeAtStart?: boolean;
+  /** Extra content at the far end of the header row (e.g. an item-count pill). */
+  headerAside?: ReactNode;
 }
 
 const panelBySide: Record<SheetSide, string> = {
@@ -45,6 +47,7 @@ export function Sheet({
   className,
   bodyClassName,
   closeAtStart = false,
+  headerAside,
 }: SheetProps) {
   const centered = side === "center";
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -86,7 +89,7 @@ export function Sheet({
       <div
         className={cn(
           "flex items-center justify-between gap-4",
-          closeAtStart && "flex-row-reverse justify-end gap-3",
+          closeAtStart && "justify-start gap-3",
           centered
             ? "px-5 pt-5 pb-1 md:px-6 md:pt-6"
             : "border-b border-neutral-200 px-5 py-4",
@@ -104,6 +107,7 @@ export function Sheet({
         >
           {title}
         </h2>
+        {headerAside && <div className="ml-auto">{headerAside}</div>}
         <button
           type="button"
           onClick={onClose}
@@ -111,7 +115,7 @@ export function Sheet({
           className={cn(
             "flex size-9 items-center justify-center rounded-full text-neutral-500 transition-colors hover:bg-neutral-150 hover:text-neutral-900 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none",
             centered && "bg-gray-100 text-neutral-900",
-            closeAtStart && "-ml-2 text-neutral-900",
+            closeAtStart && "order-first -ml-2 text-neutral-900",
           )}
         >
           <X className="size-5" aria-hidden="true" />

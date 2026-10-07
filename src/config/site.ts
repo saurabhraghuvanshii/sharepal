@@ -547,6 +547,18 @@ export const searchPromo = {
   code: "SHAREPAL",
 } as const;
 
+export interface Coupon {
+  code: string;
+  percent: number;
+  minOrder: number;
+  maxDiscount: number;
+}
+
+/** Coupon terms from the owner's screenshot (search panel banner). Not server-validated. */
+export const coupons: readonly Coupon[] = [
+  { code: "SHAREPAL", percent: 10, minOrder: 1500, maxDiscount: 300 },
+];
+
 export const supportLinks = {
   /** The live "Contact Support" button opens a chat widget; this build links to support. */
   contactSupport: live("/support"),

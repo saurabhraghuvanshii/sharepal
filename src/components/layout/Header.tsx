@@ -13,12 +13,12 @@ import { useEffect, useRef, useState } from "react";
 import { Sheet } from "@/components/ui";
 import { LIVE_SITE, superCategories } from "@/config/site";
 import { useScrolledPast } from "@/hooks/useScrollY";
-import { useStoredIds } from "@/hooks/useStoredIds";
+import { useCart } from "@/hooks/useCart";
 import { cn } from "@/lib/cn";
 import { formatShortDate } from "@/lib/dates";
 import type { ProductSummary } from "@/types/product";
 
-import { CART_KEY, CartSheet } from "./CartSheet";
+import { CartSheet } from "./CartSheet";
 import { LocationPicker } from "./LocationPicker";
 import { Logo } from "./Logo";
 import { MobileNav } from "./MobileNav";
@@ -39,7 +39,7 @@ const iconButton =
 export function Header({ city, listingPath, products }: HeaderProps) {
   const scrolled = useScrolledPast(8);
   const { dates, openDatePicker } = useRental();
-  const cart = useStoredIds(CART_KEY);
+  const cart = useCart();
   const [searchOpen, setSearchOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
@@ -59,9 +59,9 @@ export function Header({ city, listingPath, products }: HeaderProps) {
     return () => observer.disconnect();
   }, []);
 
-  const cartBadge = cart.ids.length > 0 && (
+  const cartBadge = cart.count > 0 && (
     <span className="absolute top-1 right-1 flex min-w-4 items-center justify-center rounded-full bg-secondary-500 px-1 text-[10px] leading-4 font-bold text-secondary-900">
-      {cart.ids.length}
+      {cart.count}
     </span>
   );
 
@@ -120,7 +120,7 @@ export function Header({ city, listingPath, products }: HeaderProps) {
               <button
                 type="button"
                 className={iconButton}
-                aria-label={`Cart, ${cart.ids.length} items`}
+                aria-label={`Cart, ${cart.count} items`}
                 onClick={() => setCartOpen(true)}
               >
                 <ShoppingCart className="size-5" aria-hidden="true" />
@@ -189,7 +189,7 @@ export function Header({ city, listingPath, products }: HeaderProps) {
 
       <MobileNav
         listingPath={listingPath}
-        cartCount={cart.ids.length}
+        cartCount={cart.count}
         onSearch={() => setSearchOpen(true)}
         onCart={() => setCartOpen(true)}
       />

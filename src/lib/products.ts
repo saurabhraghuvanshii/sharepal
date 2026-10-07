@@ -51,6 +51,14 @@ const SUBCATEGORY_RULES: readonly {
   { slug: "ps5-combos", label: "PS5 Combos", test: /\bPS5\b/i },
 ];
 
+/** Display label of a product's derived subcategory (e.g. "PS5 Combos"). */
+export function subcategoryLabelOf(
+  product: Pick<Product, "name">,
+): string | null {
+  const slug = getSubcategory(product);
+  return slug ? SUBCATEGORY_LABELS[slug] : null;
+}
+
 export const SUBCATEGORY_LABELS = Object.fromEntries(
   SUBCATEGORY_RULES.map((rule) => [rule.slug, rule.label]),
 ) as Record<SubcategorySlug, string>;
@@ -105,7 +113,9 @@ export function getProductsByCategory(slug: string): readonly Product[] {
   return slug === "gaming-gadgets-on-rent" ? PRODUCTS : [];
 }
 
-function getSubcategory(product: Product): SubcategorySlug | null {
+function getSubcategory(
+  product: Pick<Product, "name">,
+): SubcategorySlug | null {
   return (
     SUBCATEGORY_RULES.find((rule) => rule.test.test(product.name))?.slug ?? null
   );

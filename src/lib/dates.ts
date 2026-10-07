@@ -132,3 +132,20 @@ export function shiftMonthKeepDay(iso: string, months: number): string {
   target.setUTCDate(Math.min(d.getUTCDate(), daysInTarget));
   return toISODate(target);
 }
+
+function ordinal(n: number): string {
+  const rem100 = n % 100;
+  if (rem100 >= 11 && rem100 <= 13) return `${n}th`;
+  return `${n}${({ 1: "st", 2: "nd", 3: "rd" } as Record<number, string>)[n % 10] ?? "th"}`;
+}
+
+const monthShort = new Intl.DateTimeFormat("en-IN", {
+  month: "short",
+  timeZone: "UTC",
+});
+
+/** "2026-11-01" → "1st Nov". */
+export function formatOrdinalDate(iso: string): string {
+  const d = parse(iso);
+  return `${ordinal(d.getUTCDate())} ${monthShort.format(d)}`;
+}

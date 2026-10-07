@@ -2,8 +2,8 @@
 
 import { Bell, BellRing, Check, Heart, Plus, Vote } from "lucide-react";
 
-import { CART_KEY } from "@/components/layout/CartSheet";
 import { useRental } from "@/components/layout/RentalProvider";
+import { useCart } from "@/hooks/useCart";
 import { useStoredIds } from "@/hooks/useStoredIds";
 import { cn } from "@/lib/cn";
 import { rentalDays } from "@/lib/dates";
@@ -40,7 +40,7 @@ export function ProductCard({
 }: ProductCardProps) {
   const { dates, openDatePicker } = useRental();
   const wishlist = useStoredIds(WISHLIST_KEY);
-  const cart = useStoredIds(CART_KEY);
+  const cart = useCart();
   const notify = useStoredIds(NOTIFY_KEY);
   const votes = useStoredIds(VOTES_KEY);
 
