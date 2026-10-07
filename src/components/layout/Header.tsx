@@ -23,7 +23,9 @@ import { LocationPicker } from "./LocationPicker";
 import { Logo } from "./Logo";
 import { MobileNav } from "./MobileNav";
 import { useRental } from "./RentalProvider";
+import { PopularItems } from "./PopularItems";
 import { SearchBar } from "./SearchBar";
+import { SearchPromo } from "./SearchPromo";
 
 export interface HeaderProps {
   city: string;
@@ -195,8 +197,11 @@ export function Header({ city, listingPath, products }: HeaderProps) {
       <Sheet
         open={searchOpen}
         onClose={() => setSearchOpen(false)}
-        title="Search"
+        title="Search Products"
         side="right"
+        closeAtStart
+        className="md:w-[38rem]"
+        bodyClassName="bg-page pt-4"
       >
         {searchOpen && (
           <SearchBar
@@ -204,6 +209,15 @@ export function Header({ city, listingPath, products }: HeaderProps) {
             listingPath={listingPath}
             onNavigate={() => setSearchOpen(false)}
             autoFocus
+            idle={(searchFor) => (
+              <>
+                <SearchPromo />
+                <PopularItems
+                  products={products}
+                  onPick={(product) => searchFor(product.name)}
+                />
+              </>
+            )}
           />
         )}
       </Sheet>

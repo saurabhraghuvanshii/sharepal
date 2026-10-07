@@ -51,8 +51,15 @@ export interface Facets {
   inStockCount: number;
 }
 
-/** Minimal product fields shipped to global client UI (search suggestions, cart). */
+/** Product fields shipped to global client UI (search panel, cart). */
 export type ProductSummary = Pick<
   Product,
-  "id" | "name" | "image" | "per_day_rent"
+  | "id"
+  | "name"
+  | "image"
+  | "per_day_rent"
+  | "rating"
+  | "booked_count"
+  | "tag"
+  | "out_of_stock"
 >;

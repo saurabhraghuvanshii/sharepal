@@ -44,11 +44,24 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   const listingPath = `/${DEFAULT_CITY}/${DEFAULT_CATEGORY}`;
   const products = getAllProducts().map(
-    ({ id, name, image, per_day_rent }) => ({
+    ({
       id,
       name,
       image,
       per_day_rent,
+      rating,
+      booked_count,
+      tag,
+      out_of_stock,
+    }) => ({
+      id,
+      name,
+      image,
+      per_day_rent,
+      rating,
+      booked_count,
+      tag,
+      out_of_stock,
     }),
   );
 

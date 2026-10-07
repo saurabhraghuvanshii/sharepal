@@ -540,6 +540,13 @@ export const footerSeo = {
   ],
 } as const;
 
+/** Coupon banner in the search panel, from the owner's screenshot of the live site. */
+export const searchPromo = {
+  highlight: "Use code SHAREPAL & get 10%",
+  rest: "on orders above ₹1500. Maximum discount: ₹300",
+  code: "SHAREPAL",
+} as const;
+
 export const supportLinks = {
   /** The live "Contact Support" button opens a chat widget; this build links to support. */
   contactSupport: live("/support"),
